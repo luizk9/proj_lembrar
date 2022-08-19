@@ -10,7 +10,8 @@
    font-size: 100%;
 }
 
-body{
+body,
+#tempo{
   background-color: rgb(50, 132, 176);
   min-height:100vh;
 

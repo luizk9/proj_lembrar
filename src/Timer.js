@@ -1,30 +1,46 @@
+/* 
+## Timer ....é o tempo em segundos que se deseja execultar
+no caso ai 25 min  transforando em segundos.
+## curentTime...tempo corrido do inicio do programa
+#-- interval.... É o intervalo onde tem  o setInterval, que é o
+contador de tempo 
+*/
+
+import {View } from "./View.js";
+
 const Timer = {
-    tempoSegundos: 0.1* 60,
-    correnteTempoInicio:  0,
-    intervaloTempoContar:null,
+    time: 0.1*60,
+    currentTime:  0,
+    interval:null,
+
+    timeToMinutes: time => Math.floor(time/60),
+    // vai arredondar pelo piso 125/60 = 2 piso
+    timeToSeconds: time => time%60,
+    // vai pegar o resto da divisão 125/60 = resto 5
+    
+    formatTime: time => String(time).padStart(2,'0'),
+
     init() {
-       Timer.correnteTempoInicio = Timer.tempoSegundos 
-      Timer.intervaloTempoContar = setInterval(Timer.countdown, 1000)
+       Timer.currentTime = Timer.time 
+       Timer.interval = setInterval(Timer.countdown, 
+        1000)    
     }, // fim init
 
     countdown(){
-        Timer.correnteTempoInicio = Timer.correnteTempoInicio -1
-        console.log('de novo...' + Timer.correnteTempoInicio)
-        if(Timer.correnteTempoInicio ===0){
-            clearInterval(Timer.intervaloTempoContar)
+        Timer.currentTime = Timer.currentTime -1
+        const minutes =  Timer.timeToMinutes(Timer.currentTime)
+        const seconds =  Timer.timeToSeconds(Timer.currentTime)
+          
+        console.log( Timer.formatTime(minutes), 
+         ":" , Timer.formatTime(seconds) );
+
+        if(Timer.currentTime ===0){
+            clearInterval(Timer.interval)
             return;
-        }
-
-
-        
-    }
+        }        
+    } // fim do countdown
+    
 }//fim da const
 
 export {Timer}
 
-/*
-setInterval(() =>{
-            console.log('olha ai...');
-        }, 1000)
-
-*/
