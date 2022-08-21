@@ -3,9 +3,11 @@ import { Timer } from "./Timer.js";
 
 const App = {
    async start(){
-      Timer.init()
+      try{
+         const time = 25 * 60
+         Timer.init(time) // depois de format vem passar o tempo
         //console.log("ok ai...");
-        try{
+   
            /*     await Notifyer.init() 
            Notifyer.notify({
                 title: "Hora de Codar",
