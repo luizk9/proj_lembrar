@@ -1,0 +1,353 @@
+const Emitter = {
+    events: {},
+
+    on(eventNome){
+        // Emitter.events.click
+        Emitter.events[eventNome] = () => console.log('clique funçao')
+        console.log(Emitter.events)
+    }
+       
+}
+
+Emitter.on('click')
+
+export {Emitter}
+
+ ==============ETAPA-1 ....
+ ---TESTANDO SE TA TUDO LINKADO APP 
+ QUE IMPORTAR E AQUI QUE EXPORT ---
+
+ const Emitter = {
+ 
+    }
+
+
+ console.log("Emitter")
+export {Emitter}
+
+ ==============ETAPA-2 ....
+ ---
+ PADRAO DE PROJETO ONDE DISPARA UM AÇÃO
+ EXECULTADA EM OUTRO LUGAR
+ -PUBLIC - PUBLICA 
+ -SUBSCRIB...CARA INSCRITO
+EVENTOS QUE VAO DISPARAR
+  ---
+
+ const Emitter = {
+    events : {
+        click() => {console.log('func evento');}
+    }
+ 
+    }
+
+
+Emitter.events.click()
+Emitter.events.click()
+Emitter.events.click()
+
+export {Emitter}
+
+==============ETAPA-3 ....
+ ---
+entao precisamos registra pois o evento 
+começa vazio e dependo onde acontecer va
+ser registrado entao chama o on ()
+  ---
+
+ const Emitter = {
+    events: {},
+
+    on(eventNome)  {
+     Emitter.events[eventNome] = () => console.log('func onevento');
+     console.log(Emitter.events)
+    }       
+ } 
+
+Emitter.on('click')
+
+export {Emitter}
+
+==============ETAPA-3 ....
+
+--- observer no console f12, o evento click
+tem uma função dentro dele 
+onde o cb - é call back, a função chama outra
+vai guardar uma unica função
+---
+
+ const Emitter = {
+    events: {},
+
+    on(eventNome, cb)  {
+     Emitter.events[eventNome] = cb
+     
+    }       
+ } 
+
+Emitter.on('click', () => console.log('func onevento'))
+
+Emitter.events.click()
+
+export {Emitter}
+
+
+==============ETAPA-4 ....
+
+--- Para guardar Mais  função
+usa o array [], mas aqui ainda 
+continua com uma unica apresentação
+---
+
+ const Emitter = {
+    events: {},
+
+    on(eventNome, cb)  {
+     Emitter.events[eventNome] = []
+     Emitter.events[eventNome].push(cb)     
+    }       
+ } 
+
+Emitter.on('click', () => console.log('Click_1'))
+Emitter.on('click', () => console.log('verClick_2'))
+
+
+console.log(Emitter.events  )
+
+export {Emitter}
+
+==============ETAPA-5 ....
+
+--- Entao  para ver ser já existe
+
+---
+
+ const Emitter = {
+    events: {},
+
+    on(eventNome, cb)  {
+     Emitter.events[eventNome] =  Emitter.events[eventNome] || []
+     Emitter.events[eventNome].push(cb)     
+    }       
+ } 
+
+Emitter.on('click', () => console.log('Click_1'))
+Emitter.on('click', () => console.log('verClick_2'))
+
+
+console.log(Emitter.events  )
+
+export {Emitter}
+
+
+==============ETAPA-6 ....
+on - é o ovido das mensagens
+emit - emitir uma ou varias função
+--- feito 
+1- passo guardar EVENTOS
+2- passo registra o evento
+3- passo o disparo 
+---
+
+ const Emitter = {
+    events: {},
+
+    on(eventNome, cb)  {
+     Emitter.events[eventNome] =  Emitter.events[eventNome] || []
+     Emitter.events[eventNome].push(cb)     
+    },       
+
+    emit(eventNome) {
+        Emitter.events[eventNome][0]()
+    }
+ } 
+
+Emitter.on('click', () => console.log('clique no emit '))
+
+Emitter.emit('click')
+/* aqui ele já dispara o evento de nome click  que neste
+caso será a função do console.log 
+
+ */
+
+export {Emitter}
+
+
+
+==============ETAPA-7 ....
+---
+caso eu troque no emit  o click por uma nome compra 
+o console vai dar erro pois nao existe  */
+---
+
+ const Emitter = {
+    events: {},
+
+    on(eventNome, cb)  {
+     Emitter.events[eventNome] =  Emitter.events[eventNome] || []
+     Emitter.events[eventNome].push(cb)     
+    },       
+
+    emit(eventNome) {
+        Emitter.events[eventNome][0]()
+    }
+ } 
+
+Emitter.on('click', () => console.log('clique no emit '))
+
+Emitter.emit('compras')
+
+
+export {Emitter}
+
+==============ETAPA-8 ....
+---
+ para evitar isso fazemos uma verificação
+ com if
+---
+
+
+ const Emitter = {
+    events: {},
+
+    on(eventNome, cb)  {
+     Emitter.events[eventNome] =  Emitter.events[eventNome] || []
+     Emitter.events[eventNome].push(cb)     
+    },       
+
+    emit(eventNome) {
+    if (eventNome in Emitter.events === false){
+        return;
+    }
+     Emitter.events[eventNome]
+    }
+ } 
+
+Emitter.on('click', () => console.log('clique no emit '))
+
+Emitter.emit('click')
+
+
+export {Emitter}
+
+
+
+
+==============ETAPA-9 ....
+---
+prototyps - funçoes proprias do js
+
+---
+
+
+ const Emitter = {
+    events: {},
+
+    on(eventNome, cb)  {
+     Emitter.events[eventNome] =  Emitter.events[eventNome] || []
+     Emitter.events[eventNome].push(cb)     
+    },       
+
+    emit(eventNome) {
+    if (eventNome in Emitter.events === false){
+        return;
+    }
+     Emitter.events[eventNome].forEach( (vaiPegarCadaFunc) = > {
+            console.log(vaiPegarCadaFunc);
+        } )
+    
+    }
+ } 
+
+Emitter.on('click', () => console.log('oi 1 '))
+
+Emitter.on('click', () => console.log('olá 2 '))
+
+Emitter.emit('click')
+
+
+export {Emitter}
+
+
+
+==============ETAPA-10 ....
+---
+trocando o nome vaiPegarCadaFunc por e de 
+evento
+
+---
+
+
+ const Emitter = {
+    events: {},
+
+    on(eventNome, cb)  {
+     Emitter.events[eventNome] =  Emitter.events[eventNome] || []
+     Emitter.events[eventNome].push(cb)     
+    },       
+
+    emit(eventNome) {
+    if (eventNome in Emitter.events === false){
+        return;
+    }
+     Emitter.events[eventNome].forEach( (e) => {
+          e() } )
+    
+    }
+ } 
+
+Emitter.on('click', () => console.log('oi 1 '))
+
+Emitter.on('click', () => console.log('olá 2 '))
+Emitter.on('click', () => console.log('repetindo 3 '))
+
+
+Emitter.emit('click')
+
+
+export {Emitter}
+
+
+==============ETAPA-10 ....
+---
+AGORA é possivel colocar argumentos na função e passar 
+para exibir
+
+
+// o click vai ser o canal 
+//  Emitter.emit('click') ...vai ser o publica
+// Emitter.on('click', () => console.log('oi 1 ')) vai ser o SUBSCRIB
+---
+
+
+ const Emitter = {
+    events: {},
+
+    on(eventNome, cb)  {
+     Emitter.events[eventNome] =  Emitter.events[eventNome] || []
+     Emitter.events[eventNome].push(cb)     
+    },       
+
+    emit(eventNome, ...rest) {
+    if (eventNome in Emitter.events === false){
+        return;
+    }
+     Emitter.events[eventNome].forEach( (e) => {
+          e(...rest)
+           } )
+    
+    }
+ } 
+
+Emitter.on('click', () => console.log('oi 1 '))
+
+Emitter.on('click', () => console.log('olá 2 '))
+Emitter.on('click', () => console.log('repetindo 3 '))
+
+
+Emitter.emit('click')
+
+export {Emitter}
+
+
+

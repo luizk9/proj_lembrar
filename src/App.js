@@ -1,18 +1,17 @@
 import { Notifyer }  from "./Notifyer.js";
 import { Timer } from "./Timer.js";
-
+import { Emitter } from "./Emiitter.js";
 const App = {
    async start(){
       try{
-         const time = 25 * 60
-         Timer.init(time) // depois de format vem passar o tempo
+         Timer.init(0.1*60) // depois de format vem passar o tempo
         //console.log("ok ai...");
    
-           /*     await Notifyer.init() 
+          await Notifyer.init() 
            Notifyer.notify({
                 title: "Hora de Codar",
                 body: "vamos colocar a mão na masssar"
-           }) */
+           })  
         } catch(err){
                 console.log(eer.mensage)
         }              
