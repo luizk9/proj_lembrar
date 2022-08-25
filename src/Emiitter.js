@@ -19,9 +19,7 @@
  } 
 
 
- Emitter.on('click', () => console.log('olá 2 '))
- Emitter.on('click', () => console.log('repetindo 3 '))
- 
+
 Emitter.emit('click')
 
 export {Emitter}

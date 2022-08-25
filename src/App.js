@@ -4,14 +4,24 @@ import { Emitter } from "./Emiitter.js";
 const App = {
    async start(){
       try{
-         Timer.init(0.1*60) // depois de format vem passar o tempo
+         await Notifyer.init(),
+
+         Emitter.on('countdown-star',()=>{
+
+            Notifyer.notify({
+               title: "Hora de Codar",
+               body: "vamos colocar a mão na masssar"
+          })  
+         }) 
+
+         Emitter.on('countdown-end', () =>{
+            Timer.init()
+         })
+
+         Timer.init(0.5 * 60) // depois de format vem passar o tempo
         //console.log("ok ai...");
-   
-          await Notifyer.init() 
-           Notifyer.notify({
-                title: "Hora de Codar",
-                body: "vamos colocar a mão na masssar"
-           })  
+          
+          
         } catch(err){
                 console.log(eer.mensage)
         }              

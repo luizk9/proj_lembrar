@@ -1,4 +1,5 @@
 import {View } from "./View.js";
+import { Emitter } from "./Emiitter.js";
 
 const Timer = {
     time: 0.1*60,
@@ -13,7 +14,7 @@ const Timer = {
     formatTime: time => String(time).padStart(2,'0'),
 
     init(time) {
-        // ou customiza o temporizador eu digo como tempo vai funcionar ou de 25min ou de 60 caso nao tenha nada
+       Emitter.emit('countdown-star') 
        Timer.time = time || 60 * 60
        Timer.currentTime = Timer.time 
        Timer.interval = setInterval(Timer.countdown, 
@@ -26,26 +27,15 @@ const Timer = {
 
         const minutes = Timer.formatTime (Timer.timeToMinutes(Timer.currentTime))
         const seconds = Timer.formatTime (Timer.timeToSeconds(Timer.currentTime))
-          /* transformando em string
-        //console.log(Timer.formatTime (minutes), 
-         ":" , Timer.formatTime(seconds) );
-         depois chamo ele na view.render
-         */
+      
 
          View.render({minutes:minutes, 
             seconds:seconds})
-
-            /* ou pode escrever abreviado nome
-            objet propety Shorthand --
-                       
-             View.render({
-                minutes, 
-                seconds
-                })
-                */
-
+           
         if(Timer.currentTime ===0){
             clearInterval(Timer.interval)
+            // vai avisar o zero do evento
+            Emitter.emit('countdown-end')
             return;
         }        
     } // fim do countdown
@@ -57,11 +47,3 @@ export {Timer}
 
 
 
-
-/* 
-## Timer ....é o tempo em segundos que se deseja execultar
-no caso ai 25 min  transforando em segundos.
-## curentTime...tempo corrido do inicio do programa
-#-- interval.... É o intervalo onde tem  o setInterval, que é o
-contador de tempo 
-*/
