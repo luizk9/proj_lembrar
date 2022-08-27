@@ -454,3 +454,267 @@ const App = {
 }
 
 export{App};
+=====================app.js --com Notifyer on ###
+
+import { Notifyer }  from "./Notifyer.js";
+import { Timer } from "./Timer.js";
+import { Emitter } from "./Emiitter.js";
+const App = {
+   async start(){
+      try{
+         await Notifyer.init(),
+
+         Emitter.on('countdown-star',()=>{
+            Notifyer.notify({
+               title: "Hora de Codar",
+               body: "vamos colocar a mão na masssar"
+          })  
+         }) 
+
+         Emitter.on('countdown-end', () =>{
+            Timer.init()
+         })
+
+         Timer.init(0.5 * 60) // depois de format vem passar o tempo
+        //console.log("ok ai...");
+          
+          
+        } catch(err){
+                console.log(eer.mensage)
+        }              
+    }       
+}
+
+export{App};
+.............colocando uma funçao no Emiitter
+
+import { Notifyer }  from "./Notifyer.js";
+import { Timer } from "./Timer.js";
+import { Emitter } from "./Emiitter.js";
+const App = {
+   async start(){
+      try{
+         await Notifyer.init(),
+
+         Emitter.on('countdown-star',()=>{
+          
+          })  
+         
+         Emitter.on('countdown-end', () =>{
+            Timer.init()
+         })
+
+         Timer.init(0.5 * 60) // depois de format vem passar o tempo
+        //console.log("ok ai...");
+          
+          
+        } catch(err){
+                console.log(eer.mensage)
+        }              
+    }       
+}
+
+export{App};
+
+========= Notifyer.js.....
+
+const Notifyer = {
+ async init( ) {
+        const permission  = await Notification.requestPermission()
+        // console.log(permission);
+         if(permission!== "granted"){
+                throw new Error("Permissão negada")
+                 }       
+             },
+
+        notify({title, body,icon}){
+          new Notification(title,{
+              body,
+              icon
+         })
+        }
+        }
+        export { Notifyer};
+    
+    ......................foi modificada
+    colocando um return com função
+
+    const Notifyer = {
+ async init( ) {
+        const permission  = await Notification.requestPermission()
+        // console.log(permission);
+         if(permission!== "granted"){
+                throw new Error("Permissão negada")
+                 }       
+             },
+
+        notify({title, body,icon}){
+         return ()=> new Notification(title,{
+              body,
+              icon
+         })
+        }
+        }
+        export { Notifyer};
+
+ ===================app.js......................
+/* ----agora faz uma constante que ganha poder 
+        de função */
+
+import { Notifyer }  from "./Notifyer.js";
+import { Timer } from "./Timer.js";
+import { Emitter } from "./Emiitter.js";
+
+const var_notify = Notifyer.notify({
+   title: "#_Hora de Coda...",
+   body: "Crie alguma coisa...."
+})
+
+console.log(var_notify); // pode de função
+
+const App = {
+   async start(){
+      try{
+         await Notifyer.init(),
+
+         Emitter.on('countdown-star',()=>{
+          
+          })  
+         
+         Emitter.on('countdown-end', () =>{
+            Timer.init()
+         })
+
+         Timer.init(0.5 * 60) // depois de format vem passar o tempo
+        //console.log("ok ai...");
+          
+          
+        } catch(err){
+                console.log(eer.mensage)
+        }              
+    }       
+}
+
+export{App};
+
+==================app.js..
+/*
+obsrvando que ta apanea dando outra maneira de fazer
+passando agora por parametro ou variaveis as funções 
+ligando um arquivo no outro...
+*/
+
+import { Notifyer }  from "./Notifyer.js";
+import { Timer } from "./Timer.js";
+import { Emitter } from "./Emiitter.js";
+
+const varF_notify = Notifyer.notify({
+   title: "#_Hora de Coda...",
+   body: "Crie alguma coisa...."
+})
+
+console.log(varF_notify);
+
+const App = {
+   async start(){
+      try{
+         await Notifyer.init(),
+
+         Emitter.on('countdown-star', varF_notify)
+            
+         
+         Emitter.on('countdown-end', () =>{
+            Timer.init()
+         })
+
+         Timer.init(0.5 * 60) // depois de format vem passar o tempo
+        //console.log("ok ai...");
+          
+          
+        } catch(err){
+                console.log(eer.mensage)
+        }              
+    }       
+}
+
+export{App};
+.....................
+app.js
+:
+/* aqui simplificou a função
+time denro do app menos linha  para 
+chamar
+*/
+
+import { Notifyer }  from "./Notifyer.js";
+import { Timer } from "./Timer.js";
+import { Emitter } from "./Emiitter.js";
+
+const varF_notify = Notifyer.notify({
+   title: "#_Hora de Coda...",
+   body: "Crie alguma coisa...."
+})
+
+console.log(varF_notify);
+
+const App = {
+   async start(){
+      try{
+         await Notifyer.init(),
+
+         Emitter.on('countdown-star', varF_notify)
+            
+         
+         Emitter.on('countdown-end', Timer.init )
+            // diminuindo o tamanho do time
+
+         Timer.init(0.5 * 60) // depois de format vem passar o tempo
+        //console.log("ok ai...");
+          
+          
+        } catch(err){
+                console.log(eer.mensage)
+        }             
+    }     
+}
+export{App};
+
+==============app.js.............
+/*
+neste caso tiramos o tempo colocado na mao no 
+time.int() e deixamos no tempo do sistema
+*/
+
+
+import { Notifyer }  from "./Notifyer.js";
+import { Timer } from "./Timer.js";
+import { Emitter } from "./Emiitter.js";
+
+const varF_notify = Notifyer.notify({
+   title: "#_Hora de Coda...",
+   body: "Crie alguma coisa...."
+})
+
+console.log(varF_notify);
+
+const App = {
+   async start(){
+      try{
+         await Notifyer.init(),
+
+         Emitter.on('countdown-star', varF_notify)
+            
+         
+         Emitter.on('countdown-end', Timer.init )
+
+         Timer.init( )         
+          
+        } catch(err){
+                console.log(eer.mensage)
+        }              
+    }       
+}
+
+export{App};
+
+=================..........
